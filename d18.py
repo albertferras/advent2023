@@ -109,6 +109,21 @@ def solve(rawinput, newencoding=False):
     print("SOL", ans)
 
 
+from shapely.geometry import Polygon
+def solvePoly(rawinput, newencoding=False):
+    x = y = 0
+    vertices = [(x, y)]
+    for m, k in read(rawinput, newencoding=newencoding):
+        dx, dy = MOVES[m]
+        x += dx * k
+        y += dy * k
+        vertices.append((x, y))
+    pol = Polygon(vertices).buffer(0.5,
+                                   cap_style=shapely.BufferCapStyle.flat,
+                                   join_style=shapely.BufferJoinStyle.mitre)
+    print(int(pol.area))
+
+
 CASES = [
     """R 6 (#70c710)
 D 5 (#0dc571)
@@ -128,5 +143,10 @@ U 2 (#7a21e3)""",
 ]
 for raw in CASES:
     print("=" * 100)
-    solve(raw, newencoding=False)
-    solve(raw, newencoding=True)
+    # My non-optimal and ugly implementation
+    # solve(raw, newencoding=False)
+    # solve(raw, newencoding=True)
+    
+    # Using geometry libs:
+    solvePoly(raw, newencoding=False)
+    solvePoly(raw, newencoding=True)
