@@ -240,7 +240,7 @@ solve_part1(64, D21_INPUT)
 
 # part 2
 logpath = "logs_part2.csv"
-# solve_infinite_logged(200, D21_INPUT, logpath)  # Takes a couple minutes
+solve_infinite_logged(200, D21_INPUT, logpath)  # Takes a couple minutes
 
 rawlogs = open(logpath, "r").read()
 logs = [(0, 1)] + [(int(x.split(",")[0]), int(x.split(",")[1])) for x in rawlogs.split()]
